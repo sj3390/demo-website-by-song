@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUDIO SPACE - 인테리어 디자인</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            cursor: pointer;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-item a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 300;
+            transition: color 0.3s ease;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .nav-item a:hover,
+        .nav-item a.active {
+            color: #666;
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .hero-tagline {
+            font-size: 2rem;
+            font-weight: 200;
+            color: #444;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        /* Home Project Section */
+        .home-projects {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            letter-spacing: 2px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            height: 300px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.05);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-info {
+            text-align: center;
+            color: white;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-category {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Home Process Section */
+        .home-process {
+            background: #f8f9fa;
+            padding: 5rem 2rem;
+        }
+
+        .process-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .process-step:hover {
+            transform: translateY(-3px);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .step-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Home Contact Section */
+        .home-contact {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .contact-details {
+            margin-bottom: 2rem;
+        }
+
+        .contact-details p {
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #333;
+        }
+
+        .submit-btn {
+            background: #333;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #555;
+        }
+
+        /* Project Page Styles */
+        .page-header {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .filter-nav {
+            padding: 2rem;
+            text-align: center;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid #ddd;
+            background: white;
+            color: #666;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #333;
+            color: white;
+            border-color: #333;
+        }
+
+        .projects-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .project-item .project-image {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-bg {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.3s ease;
+        }
+
+        .project-item:hover .project-bg {
+            transform: scale(1.05);
+        }
+
+        .view-btn {
+            background: white;
+            color: #333;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-item .project-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .project-item .project-category {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .project-description {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .project-year,
+        .project-size {
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        /* Process Page Styles */
+        .process-overview {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .overview-title {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .overview-description {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-section {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .timeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #ddd;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 3rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 10px solid transparent;
+            border-left-color: white;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 10px solid transparent;
+            border-right-color: white;
+        }
+
+        .timeline-number {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .step-duration {
+            color: #888;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .step-details {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .step-detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .step-detail-item::before {
+            content: '✓';
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* Contact Page Styles */
+        .contact-main {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .contact-info h2 {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .info-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .info-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #667eea;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: #666;
+        }
+
+        .info-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 1rem;
+            color: #667eea;
+        }
+
+        .office-hours {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .hours-title {
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+        }
+
+        .contact-form-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-title {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .form-subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-weight: normal;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            position: relative;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-category {
+            color: #888;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .modal-description {
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .modal-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .detail-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .detail-label {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-value {
+            color: #666;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-tagline {
+                font-size: 1.5rem;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-content,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-buttons {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                flex-direction: column !important;
+                padding-left: 3rem;
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+
+            .timeline-item .timeline-content::after {
+                display: none;
+            }
+
+            .timeline-number {
+                left: 20px;
+                transform: translateY(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo" onclick="showPage('home')">STUDIO SPACE</div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a onclick="showPage('home')" class="nav-link">Home</a></li>
+                <li class="nav-item"><a onclick="showPage('projects')" class="nav-link">Project</a></li>
+                <li class="nav-item"><a onclick="showPage('process')" class="nav-link">Process</a></li>
+                <li class="nav-item"><a onclick="showPage('contact')" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page-section active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>STUDIO SPACE</h1>
+                <p class="hero-subtitle">인테리어 디자인</p>
+                <div class="hero-tagline">DESIGN; Define Every Space Ingeniously & Gracefully Naturally</div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="home-projects">
+            <h2 class="section-title">PROJECT</h2>
+            <div class="project-grid">
+                <div class="project-card" onclick="showPage('projects')">
+                    <div class="project-image" style="background-image: linear-gradient(45deg, #667eea 0%, #764ba2 100%);"></div>
+                    <div class="project-overlay">
+                        <div class="project-info">
+                            <h3 class="project-title">모던 아파트</h3>
+                            <p class="project-category">주거공간</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" onclick="showPage('projects')">
+                    <div class="project-image" style="background-image: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);"></div>
+                    <div class="project-overlay">
+                        <div class="project-info">
+                            <h3 class="project-title">미니멀 오피스</h3>
+                            <p class="project-category">사무공간</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" onclick="showPage('projects')">
+                    <div class="project-image" style="background-image: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);"></div>
+                    <div class="project-overlay">
+                        <div class="project-info">
+                            <h3 class="project-title">카페 인테리어</h3>
+                            <p class="project-category">상업공간</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" onclick="showPage('projects')">
+                    <div class="project-image" style="background-image: linear-gradient(45deg, #43e97b 0%, #38f9d7 100%);"></div>
+                    <div class="project-overlay">
+                        <div class="project-info">
+                            <h3 class="project-title">펜트하우스</h3>
+                            <p class="project-category">럭셔리 주거</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section class="home-process">
+            <div class="process-container">
+                <h2 class="section-title">PROCESS</h2>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">01</div>
+                        <h3 class="step-title">상담 & 현장조사</h3>
+                        <p class="step-description">고객의 니즈를 파악하고 현장 상황을 정확히 분석합니다.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">02</div>
+                        <h3 class="step-title">컨셉 제안</h3>
+                        <p class="step-description">공간의 특성과 고객의 라이프스타일에 맞는 디자인 컨셉을 제안합니다.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">03</div>
+                        <h3 class="step-title">설계 & 도면작업</h3>
+                        <p class="step-description">3D 모델링과 상세한 설계도면을 통해 완성도 높은 설계를 진행합니다.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">04</div>
+                        <h3 class="step-title">시공 & 완료</h3>
+                        <p class="step-description">전문 시공팀과 함께 꼼꼼한 시공 관리로 완벽한 공간을 완성합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="home-contact">
+            <h2 class="section-title">CONTACT</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>STUDIO SPACE</h3>
+                    <div class="contact-details">
+                        <p>서울시 강남구 테헤란로 123, 스튜디오스페이스</p>
+                        <p>연락처: 02-1234-5678</p>
+                        <p>이메일: info@studiospace.co.kr</p>
+                    </div>
+                    <div class="social-links">
+                        <p>Instagram | Blog | Behance</p>
+                    </div>
+                </div>
+                <form class="contact-form" onsubmit="submitForm(event)">
+                    <div class="form-group">
+                        <label for="home-name">이름</label>
+                        <input type="text" id="home-name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="home-email">이메일</label>
+                        <input type="email" id="home-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="home-project">프로젝트 유형</label>
+                        <input type="text" id="home-project" name="project">
+                    </div>
+                    <div class="form-group">
+                        <label for="home-message">메시지</label>
+                        <textarea id="home-message" name="message" rows="5"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">문의하기</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- Projects Page -->
+    <div id="projects" class="page-section">
+        <section class="page-header">
+            <h1 class="page-title">PROJECT</h1>
+            <p class="page-subtitle">우리의 창작물들을 만나보세요</p>
+        </section>
+
+        <section class="filter-nav">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">전체</button>
+                <button class="filter-btn" data-filter="residential">주거공간</button>
+                <button class="filter-btn" data-filter="commercial">상업공간</button>
+                <button class="filter-btn" data-filter="office">사무공간</button>
+                <button class="filter-btn" data-filter="luxury">럭셔리</button>
+            </div>
+        </section>
+
+        <section class="projects-container">
+            <div class="projects-grid">
+                <div class="project-item" data-category="residential">
+                    <div class="project-image">
+                        <div class="project-bg" style="background-image: linear-gradient(45deg, #667eea 0%, #764ba2 100%);"></div>
+                        <div class="project-overlay">
+                            <button class="view-btn" onclick="openModal('project1')">자세히 보기</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">강남 모던 아파트</h3>
+                        <p class="project-category">주거공간</p>
+                        <p class="project-description">미니멀한 디자인과 따뜻한 감성이 조화된 현대적인 주거공간입니다.</p>
+                        <div class="project-meta">
+                            <span class="project-year">2024</span>
+                            <span class="project-size">120㎡</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item" data-category="office">
+                    <div class="project-image">
+                        <div class="project-bg" style="background-image: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);"></div>
+                        <div class="project-overlay">
+                            <button class="view-btn" onclick="openModal('project2')">자세히 보기</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">테크 스타트업 오피스</h3>
+                        <p class="project-category">사무공간</p>
+                        <p class="project-description">창의성과 집중력을 높이는 혁신적인 업무 환경을 구현했습니다.</p>
+                        <div class="project-meta">
+                            <span class="project-year">2024</span>
+                            <span class="project-size">300㎡</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item" data-category="commercial">
+                    <div class="project-image">
+                        <div class="project-bg" style="background-image: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);"></div>
+                        <div class="project-overlay">
+                            <button class="view-btn" onclick="openModal('project3')">자세히 보기</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">브루클린 카페</h3>
+                        <p class="project-category">상업공간</p>
+                        <p class="project-description">빈티지한 감성과 모던한 요소가 어우러진 독특한 카페 공간입니다.</p>
+                        <div class="project-meta">
+                            <span class="project-year">2024</span>
+                            <span class="project-size">180㎡</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item" data-category="luxury">
+                    <div class="project-image">
+                        <div class="project-bg" style="background-image: linear-gradient(45deg, #43e97b 0%, #38f9d7 100%);"></div>
+                        <div class="project-overlay">
+                            <button class="view-btn" onclick="openModal('project4')">자세히 보기</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">한남동 펜트하우스</h3>
+                        <p class="project-category">럭셔리</p>
+                        <p class="project-description">도심 속 오아시스 같은 럭셔리 펜트하우스 프로젝트입니다.</p>
+                        <div class="project-meta">
+                            <span class="project-year">2023</span>
+                            <span class="project-size">250㎡</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item" data-category="residential">
+                    <div class="project-image">
+                        <div class="project-bg" style="background-image: linear-gradient(45deg, #fa709a 0%, #fee140 100%);"></div>
+                        <div class="project-overlay">
+                            <button class="view-btn" onclick="openModal('project5')">자세히 보기</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">성수동 로프트</h3>
+                        <p class="project-category">주거공간</p>
+                        <p class="project-description">산업적 감성과 주거의 편안함이 조화된 독특한 로프트 공간입니다.</p>
+                        <div class="project-meta">
+                            <span class="project-year">2023</span>
+                            <span class="project-size">95㎡</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item" data-category="commercial">
+                    <div class="project-image">
+                        <div class="project-bg" style="background-image: linear-gradient(45deg, #a8edea 0%, #fed6e3 100%);"></div>
+                        <div class="project-overlay">
+                            <button class="view-btn" onclick="openModal('project6')">자세히 보기</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">프리미엄 뷰티살롱</h3>
+                        <p class="project-category">상업공간</p>
+                        <p class="project-description">고급스러움과 편안함이 공존하는 뷰티 전문 공간입니다.</p>
+                        <div class="project-meta">
+                            <span class="project-year">2023</span>
+                            <span class="project-size">200㎡</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Process Page -->
+    <div id="process" class="page-section">
+        <section class="page-header">
+            <h1 class="page-title">PROCESS</h1>
+            <p class="page-subtitle">체계적이고 전문적인 프로젝트 진행 과정</p>
+        </section>
+
+        <section class="process-overview">
+            <h2 class="overview-title">우리의 작업 방식</h2>
+            <p class="overview-description">
+                스튜디오 스페이스는 고객의 꿈을 현실로 만들기 위해 체계적이고 전문적인 프로세스를 통해 프로젝트를 진행합니다. 
+                초기 상담부터 완공까지, 모든 단계에서 고객과의 소통을 최우선으로 하며, 
+                최고 품질의 결과물을 위해 끊임없이 노력합니다.
+            </p>
+        </section>
+
+        <section class="timeline-section">
+            <div class="timeline-container">
+                <h2 class="timeline-title">4단계 프로젝트 프로세스</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-number">01</div>
+                        <div class="timeline-content">
+                            <h3 class="step-title">상담 & 현장조사</h3>
+                            <p class="step-description">
+                                고객의 니즈와 라이프스타일을 깊이 있게 파악하고, 현장의 구조적 특성과 
+                                제약사항을 정확히 분석합니다.
+                            </p>
+                            <p class="step-duration">소요기간: 1-2주</p>
+                            <div class="step-details">
+                                <div class="step-detail-item">고객 요구사항 분석</div>
+                                <div class="step-detail-item">현장 측량 및 구조 검토</div>
+                                <div class="step-detail-item">예산 및 일정 계획</div>
+                                <div class="step-detail-item">라이프스타일 분석</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-number">02</div>
+                        <div class="timeline-content">
+                            <h3 class="step-title">컨셉 제안</h3>
+                            <p class="step-description">
+                                수집된 정보를 바탕으로 공간의 특성과 고객의 개성이 조화된 
+                                창의적인 디자인 컨셉을 제안합니다.
+                            </p>
+                            <p class="step-duration">소요기간: 2-3주</p>
+                            <div class="step-details">
+                                <div class="step-detail-item">컨셉 개발 및 무드보드 제작</div>
+                                <div class="step-detail-item">공간 계획 및 동선 설계</div>
+                                <div class="step-detail-item">컬러 팔레트 제안</div>
+                                <div class="step-detail-item">스타일 가이드 제시</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-number">03</div>
+                        <div class="timeline-content">
+                            <h3 class="step-title">설계 & 도면작업</h3>
+                            <p class="step-description">
+                                승인된 컨셉을 바탕으로 상세한 설계도면과 3D 모델링을 통해 
+                                완성도 높은 설계를 진행합니다.
+                            </p>
+                            <p class="step-duration">소요기간: 3-4주</p>
+                            <div class="step-details">
+                                <div class="step-detail-item">상세 도면 작성</div>
+                                <div class="step-detail-item">3D 모델링 및 렌더링</div>
+                                <div class="step-detail-item">가구 및 소품 선정</div>
+                                <div class="step-detail-item">시공 가이드라인 제작</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-number">04</div>
+                        <div class="timeline-content">
+                            <h3 class="step-title">시공 & 완료</h3>
+                            <p class="step-description">
+                                전문 시공팀과 함께 꼼꼼한 품질 관리와 일정 관리를 통해 
+                                완벽한 공간을 완성합니다.
+                            </p>
+                            <p class="step-duration">소요기간: 4-12주 (프로젝트 규모에 따라)</p>
+                            <div class="step-details">
+                                <div class="step-detail-item">시공 진행 및 품질 관리</div>
+                                <div class="step-detail-item">정기적인 진행 상황 보고</div>
+                                <div class="step-detail-item">마감재 및 가구 설치</div>
+                                <div class="step-detail-item">최종 점검 및 인도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page-section">
+        <section class="page-header">
+            <h1 class="page-title">CONTACT</h1>
+            <p class="page-subtitle">언제든지 연락주세요. 최고의 공간을 함께 만들어가겠습니다.</p>
+        </section>
+
+        <section class="contact-main">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>스튜디오 스페이스</h2>
+                    
+                    <div class="info-section">
+                        <div class="info-title">주소</div>
+                        <div class="info-item">
+                            <span class="info-icon">📍</span>
+                            <span>서울시 강남구 테헤란로 123, 스튜디오스페이스</span>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <div class="info-title">연락처</div>
+                        <div class="info-item">
+                            <span class="info-icon">📞</span>
+                            <span>02-1234-5678</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">📱</span>
+                            <span>010-1234-5678</span>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <div class="info-title">이메일</div>
+                        <div class="info-item">
+                            <span class="info-icon">✉️</span>
+                            <span>info@studiospace.co.kr</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">💼</span>
+                            <span>business@studiospace.co.kr</span>
+                        </div>
+                    </div>
+
+                    <div class="office-hours">
+                        <div class="hours-title">운영시간</div>
+                        <div class="hours-item">
+                            <span>월 - 금</span>
+                            <span>09:00 - 18:00</span>
+                        </div>
+                        <div class="hours-item">
+                            <span>토요일</span>
+                            <span>10:00 - 16:00</span>
+                        </div>
+                        <div class="hours-item">
+                            <span>일요일</span>
+                            <span>휴무</span>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">📸</a>
+                        <a href="#" class="social-link">🎨</a>
+                        <a href="#" class="social-link">📌</a>
+                    </div>
+                </div>
+
+                <div class="contact-form-section">
+                    <h2 class="form-title">프로젝트 문의</h2>
+                    <p class="form-subtitle">
+                        프로젝트에 대한 자세한 상담을 원하시면 아래 양식을 작성해 주세요. 
+                        24시간 내에 연락드리겠습니다.
+                    </p>
+
+                    <form class="contact-form" onsubmit="submitForm(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contact-name">이름 <span class="required">*</span></label>
+                                <input type="text" id="contact-name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-phone">연락처 <span class="required">*</span></label>
+                                <input type="tel" id="contact-phone" name="phone" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-email">이메일 <span class="required">*</span></label>
+                            <input type="email" id="contact-email" name="email" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contact-project-type">프로젝트 유형</label>
+                                <select id="contact-project-type" name="project-type">
+                                    <option value="">선택해주세요</option>
+                                    <option value="residential">주거공간</option>
+                                    <option value="commercial">상업공간</option>
+                                    <option value="office">사무공간</option>
+                                    <option value="luxury">럭셔리</option>
+                                    <option value="renovation">리모델링</option>
+                                    <option value="consultation">상담만</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-budget">예상 예산</label>
+                                <select id="contact-budget" name="budget">
+                                    <option value="">선택해주세요</option>
+                                    <option value="under-3000">3,000만원 미만</option>
+                                    <option value="3000-5000">3,000 - 5,000만원</option>
+                                    <option value="5000-1억">5,000만원 - 1억원</option>
+                                    <option value="over-1억">1억원 이상</option>
+                                    <option value="consultation">상담 후 결정</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contact-location">프로젝트 위치</label>
+                                <input type="text" id="contact-location" name="location" placeholder="예: 서울시 강남구">
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-timeline">희망 완료시기</label>
+                                <input type="text" id="contact-timeline" name="timeline" placeholder="예: 2025년 6월">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-message">프로젝트 상세 내용</label>
+                            <textarea id="contact-message" name="message" placeholder="프로젝트에 대한 자세한 설명, 원하는 스타일, 특별한 요구사항 등을 자유롭게 작성해 주세요."></textarea>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="contact-privacy" name="privacy" required>
+                            <label for="contact-privacy">개인정보 수집 및 이용에 동의합니다. <span class="required">*</span></label>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="contact-marketing" name="marketing">
+                            <label for="contact-marketing">마케팅 정보 수신에 동의합니다. (선택)</label>
+                        </div>
+
+                        <button type="submit" class="submit-btn">문의하기</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <div class="modal-header" id="modalHeader">
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h2 class="modal-title" id="modalTitle">프로젝트 제목</h2>
+                <p class="modal-category" id="modalCategory">카테고리</p>
+                <p class="modal-description" id="modalDescription">프로젝트 상세 설명</p>
+                <div class="modal-details">
+                    <div class="detail-item">
+                        <div class="detail-label">프로젝트 기간</div>
+                        <div class="detail-value" id="modalDuration">3개월</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">면적</div>
+                        <div class="detail-value" id="modalSize">120㎡</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">위치</div>
+                        <div class="detail-value" id="modalLocation">서울시 강남구</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">완료년도</div>
+                        <div class="detail-value" id="modalYear">2024</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 STUDIO SPACE. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Page Navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Add active class to current page link
+            event.target.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Project Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectItems = document.querySelectorAll('.project-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const filter = button.getAttribute('data-filter');
+
+                projectItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                        item.style.animation = 'fadeIn 0.5s ease';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Project data for modal
+        const projectData = {
+            project1: {
+                title: '강남 모던 아파트',
+                category: '주거공간',
+                description: '미니멀한 디자인과 따뜻한 감성이 조화된 현대적인 주거공간입니다. 넓은 창을 통해 들어오는 자연광을 활용하여 밝고 쾌적한 환경을 조성했으며, 고급스러운 마감재와 스마트홈 시스템을 도입하여 편리함까지 더했습니다.',
+                duration: '3개월',
+                size: '120㎡',
+                location: '서울시 강남구',
+                year: '2024',
+                background: 'linear-gradient(45deg, #667eea 0%, #764ba2 100%)'
+            },
+            project2: {
+                title: '테크 스타트업 오피스',
+                category: '사무공간',
+                description: '창의성과 집중력을 높이는 혁신적인 업무 환경을 구현했습니다. 오픈 플랜과 개별 집중 공간을 적절히 배치하여 협업과 개인 업무 모두에 최적화된 공간을 만들었습니다.',
+                duration: '4개월',
+                size: '300㎡',
+                location: '서울시 강남구',
+                year: '2024',
+                background: 'linear-gradient(45deg, #f093fb 0%, #f5576c 100%)'
+            },
+            project3: {
+                title: '브루클린 카페',
+                category: '상업공간',
+                description: '빈티지한 감성과 모던한 요소가 어우러진 독특한 카페 공간입니다. 노출 벽돌과 우드 마감재를 활용하여 따뜻하고 아늑한 분위기를 연출했습니다.',
+                duration: '2개월',
+                size: '180㎡',
+                location: '서울시 성동구',
+                year: '2024',
+                background: 'linear-gradient(45deg, #4facfe 0%, #00f2fe 100%)'
+            },
+            project4: {
+                title: '한남동 펜트하우스',
+                category: '럭셔리',
+                description: '도심 속 오아시스 같은 럭셔리 펜트하우스 프로젝트입니다. 한강 뷰를 최대한 활용한 설계와 최고급 마감재를 통해 품격 있는 공간을 완성했습니다.',
+                duration: '6개월',
+                size: '250㎡',
+                location: '서울시 용산구',
+                year: '2023',
+                background: 'linear-gradient(45deg, #43e97b 0%, #38f9d7 100%)'
+            },
+            project5: {
+                title: '성수동 로프트',
+                category: '주거공간',
+                description: '산업적 감성과 주거의 편안함이 조화된 독특한 로프트 공간입니다. 높은 천장과 큰 창을 활용하여 개방감 넘치는 공간을 조성했습니다.',
+                duration: '3개월',
+                size: '95㎡',
+                location: '서울시 성동구',
+                year: '2023',
+                background: 'linear-gradient(45deg, #fa709a 0%, #fee140 100%)'
+            },
+            project6: {
+                title: '프리미엄 뷰티살롱',
+                category: '상업공간',
+                description: '고급스러움과 편안함이 공존하는 뷰티 전문 공간입니다. 고객의 프라이버시를 고려한 개별 공간 설계와 럭셔리한 인테리어로 특별한 경험을 선사합니다.',
+                duration: '4개월',
+                size: '200㎡',
+                location: '서울시 강남구',
+                year: '2023',
+                background: 'linear-gradient(45deg, #a8edea 0%, #fed6e3 100%)'
+            }
+        };
+
+        // Modal functionality
+        function openModal(projectId) {
+            const modal = document.getElementById('projectModal');
+            const data = projectData[projectId];
+
+            document.getElementById('modalHeader').style.backgroundImage = data.background;
+            document.getElementById('modalTitle').textContent = data.title;
+            document.getElementById('modalCategory').textContent = data.category;
+            document.getElementById('modalDescription').textContent = data.description;
+            document.getElementById('modalDuration').textContent = data.duration;
+            document.getElementById('modalSize').textContent = data.size;
+            document.getElementById('modalLocation').textContent = data.location;
+            document.getElementById('modalYear').textContent = data.year;
+
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('projectModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('projectModal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Form submission
+        function submitForm(event) {
+            event.preventDefault();
+            alert('문의가 접수되었습니다. 빠른 시일 내에 연락드리겠습니다.');
+            event.target.reset();
+        }
+
+        // Header background on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // Add fade in animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set home as active by default
+            document.querySelector('.nav-link').classList.add('active');
+        });
+    </script>
+</body>
+</html>
